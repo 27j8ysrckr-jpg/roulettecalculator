@@ -10,21 +10,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 20px; 
-            /* Verde da tavolo da gioco */
             background-color: #006400; 
             color: #f0f0f0; 
         }
         .container { 
             max-width: 1200px; 
             margin: auto; 
-            /* Sfondo semi-trasparente */
             background-color: rgba(0, 0, 0, 0.4); 
             padding: 30px; 
             border-radius: 12px; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); 
-            border: 4px solid gold; /* Bordo decorativo */
+            border: 4px solid gold; 
         }
-        h1 { color: #f0ad4e; text-align: center; margin-bottom: 30px; } /* Giallo/Arancio per i titoli */
+        h1 { color: #f0ad4e; text-align: center; margin-bottom: 30px; } 
 
         /* --- Input e Controlli --- */
         .controls { 
@@ -34,7 +32,7 @@
             border: 1px solid #4a4a4a;
         }
         .input-group { flex-grow: 1; display: flex; flex-direction: column; }
-        label { margin-bottom: 5px; font-weight: bold; color: #fff; } /* Testo bianco */
+        label { margin-bottom: 5px; font-weight: bold; color: #fff; } 
         #drawnNumber { 
             padding: 10px; border: 2px solid #555; border-radius: 6px; 
             background-color: white; color: #333; font-size: 1.1em; text-align: center; 
@@ -42,7 +40,7 @@
         .buttons button { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
         #elaborateBtn { background-color: #5cb85c; color: white; }
         #elaborateBtn:hover { background-color: #449d44; }
-        #resetBtn { background-color: #d9534f; color: white; } /* Rosso di reset sul tavolo */
+        #resetBtn { background-color: #d9534f; color: white; } 
         #resetBtn:hover { background-color: #c9302c; }
 
         /* --- Main Layout --- */
@@ -52,28 +50,38 @@
         
         /* --- Roulette Wheel Visual --- */
         .wheel-container { text-align: center; position: relative; margin-top: 20px; }
-        .wheel-svg { max-width: 100%; height: auto; }
-        .wheel-svg text { font-size: 12px; fill: #f0f0f0; user-select: none; }
+        /* Modifica: Ruota leggermente rimpicciolita (max-width ridotto) */
+        .wheel-svg { max-width: 80%; height: auto; display: block; margin: 0 auto; }
+        .wheel-svg text { font-size: 10px; fill: #f0f0f0; user-select: none; }
         .wheel-svg .segment { transition: fill 0.3s, stroke 0.3s; cursor: default; }
 
         /* Stili per l'evidenziazione dinamica */
-        .segment.drawn-1 { fill: #f0ad4e !important; stroke: #fff; stroke-width: 2px; } /* Ultimo estratto: Arancio evidenziato */
-        .segment.drawn-2 { fill: #5bc0de !important; stroke: #fff; stroke-width: 1.5px; } /* Penultimo: Azzurro */
+        .segment.drawn-1 { fill: #f0ad4e !important; stroke: #fff; stroke-width: 2px; } /* Ultimo estratto: Arancio evidenziato (E2) */
+        .segment.drawn-2 { fill: #5bc0de !important; stroke: #fff; stroke-width: 1.5px; } /* Penultimo: Azzurro (E1 Riferimento) */
         .segment.drawn-3 { fill: #5cb85c !important; stroke: #fff; stroke-width: 1px; } /* Terzultimo: Verde Chiaro */
         
-        .segment.terminal { stroke: #d9534f; stroke-width: 3px; } /* Terminali: Rosso Bordò */
-        .segment.opposite { stroke: #d9534f; stroke-dasharray: 4; stroke-width: 3px; } /* Terminali Opposti: Rosso Bordò Tratteggiato */
-        .segment.zero { fill: #1c7430; } /* Zero (Verde scuro) */
-        .segment.red { fill: #8b0000; } /* Rosso */
-        .segment.black { fill: #000000; } /* Nero */
+        /* Stili per Terminali e Opposti (Bordi) */
+        .segment.terminal { stroke: #d9534f; stroke-width: 3px; } /* Terminali (T): Rosso Bordò (tratto continuo) */
+        .segment.opposite { stroke: #d9534f; stroke-dasharray: 4; stroke-width: 3px; } /* Terminali Opposti (TO): Rosso Bordò Tratteggiato */
+        .segment.zero { fill: #1c7430; } 
+        .segment.red { fill: #8b0000; } 
+        .segment.black { fill: #000000; } 
 
-        /* --- Statistiche Tabella --- */
+        /* --- Legenda e Statistiche Tabella --- */
+        .legend-section { background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; margin-bottom: 25px; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 8px; }
+        .legend-color, .legend-border { width: 20px; height: 15px; margin-right: 10px; border-radius: 3px; }
+        .legend-color.drawn-1 { background-color: #f0ad4e; }
+        .legend-color.drawn-2 { background-color: #5bc0de; }
+        .legend-color.drawn-3 { background-color: #5cb85c; }
+        .legend-border.terminal { border: 3px solid #d9534f; background: none; }
+        .legend-border.opposite { border: 3px dashed #d9534f; background: none; }
+        
         #statisticsTable { width: 100%; border-collapse: collapse; margin-top: 10px; }
         #statisticsTable th, #statisticsTable td { padding: 12px; text-align: left; border-bottom: 1px solid #4a4a4a; }
-        #statisticsTable th { background-color: #004d00; color: #f0ad4e; font-weight: bold; } /* Sfondo Testa di Tabella: Verde più scuro, Testo Arancio */
-        #statisticsTable td { background-color: rgba(0, 0, 0, 0.4); } /* Sfondo Celle Trasparente */
+        #statisticsTable th { background-color: #004d00; color: #f0ad4e; font-weight: bold; } 
+        #statisticsTable td { background-color: rgba(0, 0, 0, 0.4); } 
         .alert-info { padding: 10px; background-color: #f0ad4e; color: #333; border-radius: 4px; margin-top: 15px; text-align: center; font-weight: bold; }
-
     </style>
 </head>
 <body>
@@ -95,12 +103,22 @@
     <div class="main-content">
         <div class="wheel-area">
             <h2>Visualizzazione Ruota Europea 🌐</h2>
+            
+            <div class="legend-section">
+                <h4>Legenda Visuale Ruota:</h4>
+                <div class="legend-item"><div class="legend-color drawn-1"></div>**Ultimo Estratto (E2)**: Numero di cui si calcola la distanza.</div>
+                <div class="legend-item"><div class="legend-color drawn-2"></div>**Penultimo Estratto (E1)**: Numero che genera Terminali e Opposti.</div>
+                <div class="legend-item"><div class="legend-color drawn-3"></div>**Terzultimo Estratto (E0)**: Cronologia.</div>
+                <div class="legend-item"><div class="legend-border terminal"></div>**Terminali (T) Rif. E1**: Bordo continuo.</div>
+                <div class="legend-item"><div class="legend-border opposite"></div>**Opposti (TO) Rif. E1**: Bordo tratteggiato.</div>
+            </div>
+
             <div class="wheel-container" id="wheelContainer">
                 </div>
         </div>
 
         <div class="stats-area">
-            <h2>Statistiche (Rif. Ultimo Estratto) 📈</h2>
+            <h2>Statistiche (Rif. E1) 📈</h2>
             <div id="statisticsOutput">
                 <p>Nessun dato elaborato. Inserisci il primo numero estratto.</p>
             </div>
@@ -111,9 +129,9 @@
 <script>
     // --- 1. DATI e SETUP ---
 
-    // Ordine della ruota Europea (0 in senso orario, come fornito precedentemente)
+    // Ordine della ruota Europea
     const ROULETTE_ORDER = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
-    const TOTAL_NUMBERS = ROULETTE_ORDER.length; // 37
+    const TOTAL_NUMBERS = ROULETTE_ORDER.length; 
 
     // Colori della Ruota
     const ROULETTE_COLORS = {
@@ -121,7 +139,7 @@
         '32': 'red', '15': 'black', '19': 'red', '4': 'black', '21': 'red', '2': 'black', '25': 'red', '17': 'black', '34': 'red', '6': 'black', '27': 'red', '13': 'black', '36': 'red', '11': 'black', '30': 'red', '8': 'black', '23': 'red', '10': 'black', '5': 'red', '24': 'black', '16': 'red', '33': 'black', '1': 'red', '20': 'black', '14': 'red', '31': 'black', '9': 'red', '22': 'black', '18': 'red', '29': 'black', '7': 'red', '28': 'black', '12': 'red', '35': 'black', '3': 'red', '26': 'black'
     };
 
-    // La tabella dei Terminali fornita dall'utente (convertita in oggetto JS)
+    // La tabella dei Terminali
     const TERMINALS_TABLE = {
         0: [7], 1: [8], 2: [7, 9], 3: [8], 4: [11], 5: [10, 12], 6: [11], 7: [2, 14], 8: [1, 3, 13, 15], 9: [2, 14],
         10: [5, 17], 11: [4, 6, 16, 18], 12: [5, 17], 13: [8, 20], 14: [7, 9, 19, 21], 15: [8, 20], 16: [11, 23],
@@ -130,17 +148,15 @@
         29: [22, 24, 34, 36], 30: [23, 35], 31: [26], 32: [25, 27], 33: [26], 34: [29], 35: [28, 30], 36: [29]
     };
 
-    let drawnNumbers = []; // Memoria degli estratti (max 3 per visualizzazione)
+    let drawnNumbers = []; 
     let lastReferenceNum = null;
 
     // --- 2. FUNZIONI DI LOGICA ---
 
-    // Trova l'indice di un numero sulla ruota
     function getIndex(num) {
         return ROULETTE_ORDER.indexOf(num);
     }
 
-    // Calcola la distanza minima sulla ruota
     function getWheelDistance(num1, num2) {
         const index1 = getIndex(num1);
         const index2 = getIndex(num2);
@@ -150,7 +166,6 @@
         return Math.min(distance, TOTAL_NUMBERS - distance);
     }
 
-    // Calcola i Terminali Opposti per un dato numero estratto
     function calculateOpposites(refNum, terminals) {
         const opposites = [];
         const refIndex = getIndex(refNum);
@@ -166,11 +181,9 @@
             let opposite_index;
             
             if (CW_dist <= CCW_dist) {
-                // Terminale più vicino CW, Opposto è CCW alla stessa distanza
                 dist_to_use = CW_dist;
                 opposite_index = (refIndex - dist_to_use + TOTAL_NUMBERS) % TOTAL_NUMBERS;
             } else {
-                // Terminale più vicino CCW, Opposto è CW alla stessa distanza
                 dist_to_use = CCW_dist;
                 opposite_index = (refIndex + dist_to_use) % TOTAL_NUMBERS;
             }
@@ -192,8 +205,7 @@
             return;
         }
 
-        // 1. Aggiorna la memoria degli estratti (solo gli ultimi 3)
-        if (drawnNumbers[0] !== newNum) { // Evita duplicati consecutivi
+        if (drawnNumbers[0] !== newNum) { 
             drawnNumbers.unshift(newNum);
             if (drawnNumbers.length > 3) {
                 drawnNumbers.pop();
@@ -202,12 +214,10 @@
         
         lastReferenceNum = drawnNumbers[0];
         
-        // 2. Esegui il calcolo principale (solo se abbiamo almeno 2 numeri per le distanze)
         if (drawnNumbers.length >= 2) {
-            const prevRefNum = drawnNumbers[1]; // Il numero che genera i Terminali e Opposti
-            const currentNum = drawnNumbers[0]; // Il numero di cui calcoliamo le distanze
+            const prevRefNum = drawnNumbers[1]; 
+            const currentNum = drawnNumbers[0]; 
 
-            // Terminali e Opposti sono GENERATI dal penultimo estratto (E1 di riferimento)
             const T = TERMINALS_TABLE[prevRefNum] || [];
             const TO = calculateOpposites(prevRefNum, T);
 
@@ -215,7 +225,6 @@
             updateWheelVisualization(currentNum, T, TO);
             
         } else {
-            // Primo numero estratto
             const T = TERMINALS_TABLE[lastReferenceNum] || [];
             const TO = calculateOpposites(lastReferenceNum, T);
             document.getElementById('statisticsOutput').innerHTML = 
@@ -224,15 +233,14 @@
             updateWheelVisualization(lastReferenceNum, T, TO);
         }
 
-        // Pulisci l'input per il prossimo inserimento
         inputElement.value = '';
     }
 
     function generateSimpleStatsTable(refNum, T, TO) {
-        let html = '<table id="statisticsTable"><thead><tr><th>Tipo</th><th>Numeri</th><th>Riferimento</th></tr></thead><tbody>';
+        let html = '<table id="statisticsTable"><thead><tr><tr><th colspan="3">Numeri Generati dal Rif. E1: ' + refNum + '</th></tr><tr><th>Tipo</th><th>Numeri</th><th>Totale</th></tr></thead><tbody>';
         
-        html += '<tr><td>Terminali (T)</td><td>' + T.join(', ') + '</td><td>Generati dal ' + refNum + '</td></tr>';
-        html += '<tr><td>Terminali Opposti (TO)</td><td>' + TO.join(', ') + '</td><td>Opposti al ' + refNum + '</td></tr>';
+        html += '<tr><td>Terminali (T)</td><td>' + T.join(', ') + '</td><td>' + T.length + '</td></tr>';
+        html += '<tr><td>Terminali Opposti (TO)</td><td>' + TO.join(', ') + '</td><td>' + TO.length + '</td></tr>';
 
         html += '</tbody></table>';
         return html;
@@ -241,20 +249,16 @@
     function updateStatistics(currentNum, refNum, T, TO) {
         let html = '<h4>Analisi Distanze per E2: ' + currentNum + ' (Rif. E1: ' + refNum + ')</h4>';
         
-        // Tabella riassuntiva
         html += generateSimpleStatsTable(refNum, T, TO);
 
-        // Tabella Distanze
         html += '<h4>Distanze sulla Ruota:</h4>';
         html += '<table id="statisticsTable"><thead><tr><th>Numero</th><th>Tipo</th><th>Distanza (Posizioni)</th></tr></thead><tbody>';
 
-        // Distanze dai Terminali
         for (const t of T) {
             const dist = getWheelDistance(currentNum, t);
             html += `<tr><td>${t}</td><td>Terminali (T)</td><td>${dist}</td></tr>`;
         }
 
-        // Distanze dai Terminali Opposti
         for (const t of TO) {
             const dist = getWheelDistance(currentNum, t);
             html += `<tr><td>${t}</td><td>Terminali Opposti (TO)</td><td>${dist}</td></tr>`;
@@ -270,22 +274,22 @@
         lastReferenceNum = null;
         document.getElementById('drawnNumber').value = '';
         document.getElementById('statisticsOutput').innerHTML = '<p>Nessun dato elaborato. Inserisci il primo numero estratto.</p>';
-        generateWheelSVG(); // Rigenera la ruota base
+        generateWheelSVG(); 
     }
 
     // --- 4. FUNZIONI GRAFICHE (SVG) ---
 
     function generateWheelSVG(highlightCurrent = null, T = [], TO = []) {
-        const container = document.getElementById('wheelContainer');
-        const radius = 150;
-        const center = 160;
+        // Modifica: Raggio e ViewBox ridotti per rimpicciolire la ruota
+        const radius = 120;
+        const center = 135;
         const angleStep = 360 / TOTAL_NUMBERS;
+        const container = document.getElementById('wheelContainer');
         let svgContent = '';
         
-        // Inizia SVG
+        // ViewBox ridotto
         svgContent += `<svg class="wheel-svg" viewBox="0 0 ${center * 2} ${center * 2}" xmlns="http://www.w3.org/2000/svg">`;
 
-        // Crea 37 segmenti
         for (let i = 0; i < TOTAL_NUMBERS; i++) {
             const num = ROULETTE_ORDER[i];
             const startAngle = i * angleStep;
@@ -303,7 +307,6 @@
                 `Z`
             ].join(' ');
 
-            // Classi per colori e evidenziazioni
             let classes = ROULETTE_COLORS[num] + ' segment';
             if (num === drawnNumbers[0] && drawnNumbers.length >= 1) classes += ' drawn-1';
             if (num === drawnNumbers[1] && drawnNumbers.length >= 2) classes += ' drawn-2';
@@ -311,32 +314,25 @@
             if (T.includes(num)) classes += ' terminal';
             if (TO.includes(num)) classes += ' opposite';
             
-            // Disegna il segmento
             svgContent += `<path d="${pathData}" class="${classes}" data-num="${num}"/>`;
 
-            // Calcola la posizione per il testo
             const textAngle = startAngle + (angleStep / 2);
-            const textRadius = radius * 0.8;
+            const textRadius = radius * 0.75;
             const textX = center + textRadius * Math.cos((textAngle - 90) * Math.PI / 180);
             const textY = center + textRadius * Math.sin((textAngle - 90) * Math.PI / 180);
             
-            // Disegna il numero
             svgContent += `<text x="${textX}" y="${textY}" dominant-baseline="middle" text-anchor="middle">${num}</text>`;
         }
 
         // Cerchio centrale
-        svgContent += `<circle cx="${center}" cy="${center}" r="30" fill="#3a3a3a" />`;
-        svgContent += `<text x="${center}" y="${center}" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#fff" font-size="14px">RUOTA</text>`;
+        svgContent += `<circle cx="${center}" cy="${center}" r="25" fill="#3a3a3a" />`;
+        svgContent += `<text x="${center}" y="${center}" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#fff" font-size="12px">RUOTA</text>`;
 
-        // Chiudi SVG
         svgContent += `</svg>`;
         container.innerHTML = svgContent;
     }
     
-    // Aggiorna la visualizzazione della ruota
     function updateWheelVisualization(currentRef, T, TO) {
-        // Se c'è un secondo numero estratto, i terminali e opposti si riferiscono al penultimo
-        // Se c'è solo un numero, i terminali e opposti si riferiscono a quel numero
         if (drawnNumbers.length > 1) {
             const referenceNum = drawnNumbers[1];
             T = TERMINALS_TABLE[referenceNum] || [];
@@ -349,7 +345,6 @@
         generateWheelSVG(currentRef, T, TO);
     }
     
-    // Avvia l'interfaccia all'apertura
     window.onload = function() {
         generateWheelSVG();
     };
